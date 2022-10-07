@@ -13,7 +13,7 @@
         <VcpkgConfiguration>$(Configuration)</VcpkgConfiguration>
       </PropertyGroup>
     </When>
-    <When Condition="'$(UseDebugLibraries)' == 'true'">
+    <When Condition="'$(Configuration)' == 'StaticDebug'">
       <PropertyGroup>
         <VcpkgConfiguration>Debug</VcpkgConfiguration>
       </PropertyGroup>
@@ -36,7 +36,7 @@
     <VcpkgApplocalDeps Condition="'$(VcpkgApplocalDeps)' == ''">true</VcpkgApplocalDeps>
 
     <!-- Manifest files -->
-    <VcpkgEnableManifest Condition="'$(VcpkgEnableManifest)' == ''">false</VcpkgEnableManifest>
+    <VcpkgEnableManifest Condition="'$(VcpkgEnableManifest)' == ''">true</VcpkgEnableManifest>
     <VcpkgManifestInstall Condition="'$(VcpkgManifestInstall)' == ''">true</VcpkgManifestInstall>
     <VcpkgManifestRoot Condition="'$(VcpkgManifestRoot)' == ''">$([MSbuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), vcpkg.json))</VcpkgManifestRoot>
   </PropertyGroup>
