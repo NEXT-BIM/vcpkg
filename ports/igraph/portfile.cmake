@@ -4,13 +4,13 @@
 #  - The release tarball contains pre-generated parser sources, which eliminates the dependency on bison/flex.
 
 vcpkg_download_distfile(ARCHIVE
-    URLS "https://github.com/igraph/igraph/releases/download/0.10.1/igraph-0.10.1.tar.gz"
-    FILENAME "igraph-0.10.1.tar.gz"
-    SHA512 5761543be8c44b9d43bbad5e4bc595be2cb518a4a74b0c7c5ace49d4868bb567e44ee882554dc3cfb7b2835881c1c70689f241cd5937039d353e2a7d521a364a
+    URLS "https://github.com/igraph/igraph/releases/download/0.10.6/igraph-0.10.6.tar.gz"
+    FILENAME "igraph-0.10.6.tar.gz"
+    SHA512 e01d8bf2335b95a94a0abf095d2f43bc4397f028406389c4a0bddc038b117d7c5b6f02032d77c11c44ae51dbae10b92c677555d879dec6f028a5d8cb97c37029
 )
 
-vcpkg_extract_source_archive_ex(
-    OUT_SOURCE_PATH SOURCE_PATH
+vcpkg_extract_source_archive(
+    SOURCE_PATH
     ARCHIVE ${ARCHIVE}
     PATCHES
       "glpk-uwp.patch" # patch GLPK for UWP compatibility
@@ -50,6 +50,7 @@ vcpkg_cmake_configure(
         -DIGRAPH_USE_INTERNAL_BLAS=OFF
         -DIGRAPH_USE_INTERNAL_LAPACK=OFF
         -DF2C_EXTERNAL_ARITH_HEADER=${ARITH_H}
+        -DIGRAPH_WARNINGS_AS_ERRORS=OFF
         ${FEATURE_OPTIONS}
 )
 
