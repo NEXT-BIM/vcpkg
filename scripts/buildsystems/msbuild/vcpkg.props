@@ -42,5 +42,6 @@
     <VcpkgEnableManifest Condition="'$(VcpkgEnableManifest)' == ''">true</VcpkgEnableManifest>
     <VcpkgManifestInstall Condition="'$(VcpkgManifestInstall)' == ''">true</VcpkgManifestInstall>
     <VcpkgManifestRoot Condition="'$(VcpkgManifestRoot)' == ''">$([MSbuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), vcpkg.json))</VcpkgManifestRoot>
+    <VcpkgAdditionalInstallOptions Condition="'$(VcpkgAdditionalInstallOptions)' == ''">--allow-unsupported</VcpkgAdditionalInstallOptions>
   </PropertyGroup>
 </Project>
