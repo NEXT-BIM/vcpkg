@@ -1,11 +1,10 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO brainboxdotcc/DPP
-    REF cb591768ee009be2c935847d087fc935ef075ce7
-    SHA512  18832c99f208aba4fe44b4fd68fa7132518b16f2535af1323c274282f3128ad7ddb250b5d6c34a87558adf33ba7000561c8abf3be735f221baf978971b4d943d
-    HEAD_REF master
-    PATCHES
-        make-pkgconfig-required.patch
+    REF "v${VERSION}"
+    SHA512 49cb6fedcb75d3dd146243f46f9e34cfe79e1c9a6ae76fc69c8c6935d9a10ccf562452311085791674ff659913befe1dc6f8a191b518d45151cb23d779396572
+    PATCHES 
+        fix-compile-defs-10.0.25.patch
 )
 
 vcpkg_cmake_configure(
@@ -24,11 +23,6 @@ if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
     file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin" "${CURRENT_PACKAGES_DIR}/debug/bin")
 endif()
 
-file(
-    INSTALL "${SOURCE_PATH}/LICENSE"
-    DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}"
-    RENAME copyright
-)
+vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
 
 file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
-
