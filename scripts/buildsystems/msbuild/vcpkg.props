@@ -26,9 +26,9 @@
   </Choose>
 
   <PropertyGroup>
-    <VcpkgUseStatic Condition="'$(VcpkgUseStatic)' == ''">false</VcpkgUseStatic>
+    <VcpkgUseStatic Condition="'$(VcpkgUseStatic)' == ''">true</VcpkgUseStatic>
     <VcpkgRoot Condition="'$(VcpkgRoot)' == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\..'))</VcpkgRoot>
-
+    <VcpkgUseMD Condition="'$(VcpkgUseMD)' == ''">true</VcpkgUseMD>
     <VcpkgAutoLink Condition="'$(VcpkgAutoLink)' == ''">true</VcpkgAutoLink>
     <!-- Deactivate Autolinking if lld is used as a linker. (Until a better way to solve the problem is found!).
     Tried to add /lib as a parameter to the linker call but was unable to find a way to pass it as the first parameter. -->
