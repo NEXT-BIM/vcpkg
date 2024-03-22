@@ -19,15 +19,12 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO openssl/openssl
     REF "openssl-${VERSION}"
-    SHA512 c48ad86265b0fee18b23863b645a286d131a863a3418c7d2ed6c819eebb822ad0f2985ba3ecbf4def32515442f0eb40aba08f3146d113247e86ec80fbddca1c1
+    SHA512 3eed5903f37ac728522cbb0ea0081f1d5a62d9420366d487f838dc22c31813c58584838400bd3d09518608e1e71bafcb1ff83713d351e4876da6625d5543fef6
     PATCHES
-        arm64-asm.patch
-        disable-apps.patch
-        disable-install-docs.patch
+        command-line-length.patch
         script-prefix.patch
         windows/install-layout.patch
         windows/install-pdbs.patch
-        windows/perlasm-scheme.patch
         unix/android-cc.patch
         unix/move-openssldir.patch
         unix/no-empty-dirs.patch
@@ -37,9 +34,8 @@ vcpkg_from_github(
 vcpkg_list(SET CONFIGURE_OPTIONS
     enable-static-engine
     enable-capieng
-    no-ssl3
-    no-weak-ssl-ciphers
     no-tests
+    no-docs
 )
 
 set(INSTALL_FIPS "")
@@ -56,6 +52,15 @@ endif()
 
 if(NOT "tools" IN_LIST FEATURES)
     vcpkg_list(APPEND CONFIGURE_OPTIONS no-apps)
+endif()
+
+if("weak-ssl-ciphers" IN_LIST FEATURES)
+    vcpkg_list(APPEND CONFIGURE_OPTIONS enable-weak-ssl-ciphers)
+endif()
+
+if("ssl3" IN_LIST FEATURES)
+    vcpkg_list(APPEND CONFIGURE_OPTIONS enable-ssl3)
+    vcpkg_list(APPEND CONFIGURE_OPTIONS enable-ssl3-method)
 endif()
 
 if(DEFINED OPENSSL_USE_NOPINSHARED)

@@ -1,6 +1,5 @@
 vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 
-set(BDE_TOOLS_VERSION "${VERSION}")
 
 # Acquire Python and add it to PATH
 vcpkg_find_acquire_program(PYTHON3)
@@ -10,8 +9,8 @@ get_filename_component(PYTHON3_EXE_PATH ${PYTHON3} DIRECTORY)
 vcpkg_from_github(
     OUT_SOURCE_PATH TOOLS_PATH
     REPO "bloomberg/bde-tools"
-    REF "${BDE_TOOLS_VERSION}"
-    SHA512 3c39da8d1ea40459e36e11ada93cc2821ae1b16a831f93cccab463996394a400cc08bb1654642eae1aa5187f139d7fb80c4729e464051eee182133eb8a74158d
+    REF "${VERSION}"
+    SHA512 3aa64215c473ccecbd213234826b0c8cffd9491e7bf358e5947c80103e0723ef56da8ec7cc9cf51c6b7a887e5b0b52e80f3201d933accf7f6d5cc95fc1cb35dc
     HEAD_REF main
 )
 
@@ -24,7 +23,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO "bloomberg/bde"
     REF "${VERSION}"
-    SHA512 810b4a06a08739dcd990751dd543aa7dc58355f9d64a7c96ef0cf45c81501946434db42ad5bcf5d16110d5a463586b587ce09a446136e824298f39a8a871b490
+    SHA512 27e204e22883065e3ae9ab92d2c87d8e26a2871a36ede01367ee0e4d4a0e0de4f7b9452a0c219066dbb37a6f06ec3acabd6be029b8fdaab6c6ea4094300371d0
     HEAD_REF main
 )
 
@@ -49,12 +48,16 @@ vcpkg_cmake_build()
 # Install release
 vcpkg_cmake_install()
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/)
+list(APPEND SUBPACKAGES "ryu" "inteldfp" "pcre2" "s_baltst" "bsl" "bdl" "bal")
+include(GNUInstallDirs) # needed for CMAKE_INSTALL_LIBDIR
+foreach(subpackage IN LISTS SUBPACKAGES)
+    vcpkg_cmake_config_fixup(PACKAGE_NAME ${subpackage} CONFIG_PATH /${CMAKE_INSTALL_LIBDIR}/cmake/${subpackage} DO_NOT_DELETE_PARENT_CONFIG_PATH)
+endforeach()
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/${CMAKE_INSTALL_LIBDIR}/cmake" "${CURRENT_PACKAGES_DIR}/debug/${CMAKE_INSTALL_LIBDIR}/cmake")
 
 # Handle copyright
 file(INSTALL ${SOURCE_PATH}/LICENSE
      DESTINATION ${CURRENT_PACKAGES_DIR}/share/bde
      RENAME copyright
 )
-
 vcpkg_fixup_pkgconfig()
