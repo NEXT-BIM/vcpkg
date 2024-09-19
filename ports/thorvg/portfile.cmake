@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO thorvg/thorvg
     REF "v${VERSION}"
-    SHA512 256a1d717d088af458729c2eb1a11c47b845206247fb1b93d783c8418fcb3843391e7d821ec97189c72c0d15d2e572156c307996c76fa4ac3444899e4283e192
+    SHA512 1f92ac37d537399cc0792f36d92c6ddfd0c0c036072f1058d8805690f5eaf2f3d7b02e6b35eacf3e3db607e321ccae30defc0f69d9775cfcd55259d7a22e6820
     HEAD_REF master
 )
 
@@ -24,11 +24,12 @@ vcpkg_configure_meson(
         -Dengines=['sw']
         -Dloaders=all
         -Dsavers=all
-        -Dvector=false # The reason for setting 'Dvector=false' was that the creator said a false setting was necessary
+        -Dsimd=false # The reason for setting 'Dsimd=false' was that the creator said a false setting was necessary
         -Dbindings=capi
         -Dtests=false
         -Dexamples=false
         -Dstrip=false
+        -Dextra=['']
     OPTIONS_DEBUG
         -Dlog=true
         -Dbindir=${CURRENT_PACKAGES_DIR}/debug/bin
