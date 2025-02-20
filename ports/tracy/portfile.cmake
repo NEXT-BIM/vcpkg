@@ -33,6 +33,8 @@ vcpkg_cmake_configure(
     OPTIONS
         -DDOWNLOAD_CAPSTONE=OFF
         -DLEGACY=ON
+        -DTRACY_DELAYED_INIT=ON
+        -DTRACY_MANUAL_LIFETIME=ON
         ${FEATURE_OPTIONS}
     OPTIONS_RELEASE
         ${TOOLS_OPTIONS}
