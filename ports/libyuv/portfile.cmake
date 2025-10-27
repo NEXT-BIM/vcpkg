@@ -1,7 +1,7 @@
 vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
     URL https://chromium.googlesource.com/libyuv/libyuv
-    REF c21dda06dd8d19b6e50168c28c324c1f32e94407 # 6 commits after switch to 1895, reason: CMake changes
+    REF d98915a654d3564e4802a0004add46221c4e4348
     # Check https://chromium.googlesource.com/libyuv/libyuv/+/refs/heads/main/include/libyuv/version.h for a version!
     PATCHES
         cmake.diff
